@@ -88,18 +88,6 @@ const RootQueryType = new GraphQLObjectType({
           .then((res) => res.data)
           .then((data) => data)
           .catch((err) => console.log(err));
-
-      args: { name: { type: GraphQLString } },
-      resolve(parentValue, args) {
-        return (
-          axios
-            .get(`https://api.openbrewerydb.org/breweries?by_name=${args.name}`)
-            // .get("https://api.openbrewerydb.org/breweries")
-            .then((res) => res.data)
-            .then((data) => data)
-            .catch((err) => console.log(err))
-        );
-
       },
     },
     BreweryByDefault: {

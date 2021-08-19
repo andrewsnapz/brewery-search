@@ -1,0 +1,52 @@
+.form {
+  position: relative;
+  margin: 1rem auto;
+  font-family: var(--secondary-font);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__title {
+    font-size: 2.3rem;
+  }
+
+  &__input {
+    height: 2.5rem;
+    width: 80%;
+  }
+
+  &__label {
+    font-size: 1.5rem;
+  }
+
+  &__select {
+    font-family: inherit;
+    background-color: transparent;
+    height: 2.5rem;
+    width: 80%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    outline: none;
+  }
+
+  //   &__select::-ms-expand {
+  //     display: none;
+  //   }
+
+  &__button {
+    font-family: inherit;
+    height: 3rem;
+    width: 80%;
+  }
+}
+
+.form > * {
+  margin-top: 0.5rem;
+}
+
+.exit {
+  position: absolute;
+  top: 0;
+  right: 2rem;
+}

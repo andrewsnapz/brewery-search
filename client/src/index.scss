@@ -1,0 +1,29 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+:root {
+  --color-light: #f3f1e0;
+  --color-blue: #91b0ae;
+  --color-orange: #d88429;
+  --color-brown: #bca655;
+
+  --primary-font: "Martel Sans", sans-serif;
+  --secondary-font: "Nunito Sans", sans-serif;
+}
+
+body {
+  font-family: var(--primary-font);
+}

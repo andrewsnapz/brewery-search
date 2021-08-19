@@ -1,0 +1,31 @@
+.cardContainer {
+  position: relative;
+  font-size: 1.2rem;
+  font-family: var(--secondary-font);
+  background-color: var(--color-light);
+  border-radius: 15px;
+  height: 15rem;
+  width: 55%;
+  margin: 1.5rem auto;
+  // line-height: 2rem;
+  // z-index: -1;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__h4 {
+  }
+  &__h3 {
+  }
+
+  .iconGroup {
+    position: relative;
+    margin-top: 1rem;
+    width: 50%;
+
+    display: flex;
+    justify-content: space-around;
+  }
+}

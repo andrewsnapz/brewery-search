@@ -33,7 +33,7 @@ const BreweryType = new GraphQLObjectType({
 const RootQueryType = new GraphQLObjectType({
   name: "RootQueryType",
   fields: {
-    BreweryByName: {
+    BreweryCompletedForm: {
       type: new GraphQLList(BreweryType),
 
       args: {
@@ -61,21 +61,25 @@ const RootQueryType = new GraphQLObjectType({
           });
       },
     },
+    BreweryByName: {
+      type: new GraphQLList(BreweryType),
+      args: { name: { type: GraphQLString } },
+      resolve(parentValue, args) {
+        return axios
+          .get(`https://api.openbrewerydb.org/breweries?by_state=${args.name}`)
+          .then((res) => res.data)
+          .then((data) => data)
+          .catch((err) => console.log(err));
+      },
+    },
     BreweryByState: {
       type: new GraphQLList(BreweryType),
-      args: { state: { type: GraphQLString }, city: { type: GraphQLString } },
+      args: { state: { type: GraphQLString } },
       resolve(parentValue, args) {
-        console.log(args);
         return axios
           .get(`https://api.openbrewerydb.org/breweries?by_state=${args.state}`)
           .then((res) => res.data)
-          .then((data) => {
-            if (args.city.length) {
-              return data.filter((brewery) => brewery.city === args.city);
-            } else {
-              return data;
-            }
-          })
+          .then((data) => data)
           .catch((err) => console.log(err));
       },
     },
@@ -97,6 +101,47 @@ const RootQueryType = new GraphQLObjectType({
           .get(`https://api.openbrewerydb.org/breweries`)
           .then((res) => res.data)
           .then((data) => data)
+          .catch((err) => console.log(err));
+      },
+    },
+    BreweryByCityAndState: {
+      type: new GraphQLList(BreweryType),
+      args: { city: { type: GraphQLString }, state: { type: GraphQLString } },
+      resolve(parentValue, args) {
+        return axios
+          .get(`http://api.openbrewerydb.org/breweries?by_city=${args.city}`)
+          .then((res) => res.data)
+          .then((data) =>
+            data.filter((brewery) => brewery.state === args.state)
+          )
+          .catch((err) => console.log(err));
+      },
+    },
+    BreweryByNameAndCity: {
+      type: new GraphQLList(BreweryType),
+      args: { name: { type: GraphQLString }, city: { type: GraphQLString } },
+      resolve(parentValue, args) {
+        return axios
+          .get(`http://api.openbrewerydb.org/breweries?by_name=${args.name}`)
+          .then((res) => res.data)
+          .then((data) =>
+            data.filter((brewery) => {
+              brewery.city === args.city;
+            })
+          )
+          .catch((err) => console.log(err));
+      },
+    },
+    BreweryByNameAndState: {
+      type: new GraphQLList(BreweryType),
+      args: { name: { type: GraphQLString }, state: { type: GraphQLString } },
+      resolve(parentValue, args) {
+        return axios
+          .get(`http://api.openbrewerydb.org/breweries?by_name=${args.name}`)
+          .then((res) => res.data)
+          .then((data) =>
+            data.filter((brewery) => brewery.state === args.state)
+          )
           .catch((err) => console.log(err));
       },
     },

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./App.module.scss";
 
 import { useQuery } from "@apollo/client";
@@ -8,12 +8,17 @@ import Header from "./components/Layout/Header";
 import BaseBrewery from "./components/UI/BaseBrewery";
 
 const App = () => {
-  const { loading, error, data } = useQuery(FETCH_DEFAULT);
+  const [breweriesToDisplay, setBreweriesToDisplay] = useState([]);
+  const { loading, error } = useQuery(FETCH_DEFAULT, {
+    onCompleted: (data) => {
+      setBreweriesToDisplay([...data.BreweryByDefault]);
+    },
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return `Error: ${error.message}`;
 
-  const listOfBreweries = data.BreweryByDefault.map((brewery) => {
+  const listOfBreweries = breweriesToDisplay.map((brewery) => {
     return (
       <li key={brewery.id}>
         <BaseBrewery
@@ -31,7 +36,7 @@ const App = () => {
 
   return (
     <div className={styles.container}>
-      <Header />
+      <Header setBreweriesToDisplay={setBreweriesToDisplay} />
       <ul>{listOfBreweries}</ul>
     </div>
   );

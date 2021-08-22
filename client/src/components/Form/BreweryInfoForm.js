@@ -1,9 +1,12 @@
 import React, { useReducer, useState } from "react";
 import styles from "./BreweryInfoForm.module.scss";
-import { useQuery } from "@apollo/client";
+// import { useLazyQuery } from "@apollo/client";
 
-import FETCH_FORM_QUERY from "../../queries/fetchFormQuery";
+// import FETCH_COMPLETED_FORM_QUERY from "../../queries/fetchFormQuery";
+// import FETCH_BY_STATE from "../../queries/fetchByState";
+
 import BaseModal from "../UI/BaseModal";
+import QueryComponent from "./QueryComponent";
 
 const initialState = {
   handlerNameOfBrewery: "",
@@ -27,39 +30,82 @@ const formReducer = (state, action) => {
   }
 };
 
-const BreweryInfoForm = ({ setModalOpen }) => {
+const BreweryInfoForm = ({ setBreweriesToDisplay, setModalOpen }) => {
   const [formState, dispatch] = useReducer(formReducer, initialState);
   const [showError, setShowError] = useState(false);
-  // const { loading, error, data } = useQuery(FETCH_FORM_QUERY, {
-  //   variables: {
-  //     $name: "Dog",
-  //     $city: formState.handlerNameOfCity,
-  //     $city: "California",
+
+  // const [search, { loading, data, error }] = useLazyQuery(
+  //   FETCH_COMPLETED_FORM_QUERY,
+  //   {
+  //     fetchPolicy: "network-only",
+  //     onCompleted: (data) => {
+  //       setBreweriesToDisplay([...data.BreweryCompletedForm]);
+  //     },
+  //   }
+  // );
+
+  // const [
+  //   searchByState,
+  //   { searchByStateLoading, searchByStateData, searchByStateError },
+  // ] = useLazyQuery(FETCH_BY_STATE, {
+  //   fetchPolicy: "network-only",
+  //   onCompleted: (data) => {
+  //     setBreweriesToDisplay([...data.BreweryByState]);
   //   },
   // });
-  // console.log(data);
 
-  const onSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    const { handlerNameOfBrewery, handlerNameOfCity, selectState } = formState;
-
-    if (
-      handlerNameOfBrewery.trim().length <= 0 &&
-      handlerNameOfCity.trim().length <= 0 &&
-      selectState === ""
-    ) {
-      setShowError(true);
-    } else if (
-      handlerNameOfBrewery.trim().length > 0 &&
-      handlerNameOfCity.trim().length &&
-      selectState !== ""
-    ) {
-    }
+    return (
+      <QueryComponent
+        formParams={formState}
+        setBreweriesToDisplay={setBreweriesToDisplay}
+      />
+    );
   };
+
+  // const onSubmit = (e) => {
+  //   e.preventDefault();
+  //   const { handlerNameOfBrewery, handlerNameOfCity, selectState } = formState;
+
+  //   if (
+  //     handlerNameOfBrewery.trim().length <= 0 &&
+  //     handlerNameOfCity.trim().length <= 0 &&
+  //     selectState === ""
+  //   ) {
+  //     return setShowError(true);
+  //   } else if (
+  //     handlerNameOfBrewery.trim().length > 0 &&
+  //     handlerNameOfCity.trim().length > 0 &&
+  //     selectState !== ""
+  //   ) {
+  //     search({
+  //       variables: {
+  //         name: handlerNameOfBrewery,
+  //         city: handlerNameOfCity,
+  //         state: selectState,
+  //       },
+  //     });
+  //   } else if (
+  //     !handlerNameOfBrewery.trim().length &&
+  //     handlerNameOfCity.trim().length &&
+  //     selectState !== ""
+  //   ) {
+  //     console.log("clicked");
+  //     searchByState({
+  //       variables: {
+  //         city: handlerNameOfCity,
+  //         state: selectState,
+  //       },
+  //     });
+  //   }
+  //   setShowError(false);
+  //   return setModalOpen(false);
+  // };
 
   return (
     <BaseModal>
-      <form className={styles.form} onSubmit={onSubmit}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <h3 className={styles.form__title}>Search Breweries</h3>
         <h3 onClick={() => setModalOpen(false)} className={styles.exit}>
           X

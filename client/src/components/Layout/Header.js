@@ -6,10 +6,13 @@ import BreweryInfoForm from "../Form/BreweryInfoForm";
 import { ReactComponent as MagnifyingIcon } from "../../assets/SVG/magnifying-glass.svg";
 import { ReactComponent as OpenBookIcon } from "../../assets/SVG/open-book.svg";
 
-const Header = () => {
+const Header = ({ setBreweriesToDisplay }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const showModal = isModalOpen ? (
-    <BreweryInfoForm setModalOpen={setModalOpen} />
+    <BreweryInfoForm
+      setBreweriesToDisplay={setBreweriesToDisplay}
+      setModalOpen={setModalOpen}
+    />
   ) : null;
 
   return (

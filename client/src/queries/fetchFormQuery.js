@@ -1,13 +1,18 @@
 import { gql } from "@apollo/client";
 
-const FETCH_FORM_QUERY = gql`
-  query BreweryName($name: String, $city: String, $state: String) {
-    BreweryByName(name: $name, city: $city, state: $state) {
+const FETCH_COMPLETED_FORM_QUERY = gql`
+  query BreweryCompletedForm($name: String, $city: String, $state: String) {
+    BreweryCompletedForm(name: $name, city: $city, state: $state) {
+      id
       name
+      phone
       city
       state
+      website_url
+      latitude
+      longitude
     }
   }
 `;
 
-export default FETCH_FORM_QUERY;
+export default FETCH_COMPLETED_FORM_QUERY;

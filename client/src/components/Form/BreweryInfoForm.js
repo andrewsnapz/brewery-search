@@ -1,9 +1,5 @@
 import React, { useReducer, useState } from "react";
 import styles from "./BreweryInfoForm.module.scss";
-// import { useLazyQuery } from "@apollo/client";
-
-// import FETCH_COMPLETED_FORM_QUERY from "../../queries/fetchFormQuery";
-// import FETCH_BY_STATE from "../../queries/fetchByState";
 
 import BaseModal from "../UI/BaseModal";
 import QueryComponent from "./QueryComponent";
@@ -34,26 +30,6 @@ const BreweryInfoForm = ({ setBreweriesToDisplay, setModalOpen }) => {
   const [formState, dispatch] = useReducer(formReducer, initialState);
   const [showError, setShowError] = useState(false);
 
-  // const [search, { loading, data, error }] = useLazyQuery(
-  //   FETCH_COMPLETED_FORM_QUERY,
-  //   {
-  //     fetchPolicy: "network-only",
-  //     onCompleted: (data) => {
-  //       setBreweriesToDisplay([...data.BreweryCompletedForm]);
-  //     },
-  //   }
-  // );
-
-  // const [
-  //   searchByState,
-  //   { searchByStateLoading, searchByStateData, searchByStateError },
-  // ] = useLazyQuery(FETCH_BY_STATE, {
-  //   fetchPolicy: "network-only",
-  //   onCompleted: (data) => {
-  //     setBreweriesToDisplay([...data.BreweryByState]);
-  //   },
-  // });
-
   const handleSubmit = (e) => {
     e.preventDefault();
     return (
@@ -63,45 +39,6 @@ const BreweryInfoForm = ({ setBreweriesToDisplay, setModalOpen }) => {
       />
     );
   };
-
-  // const onSubmit = (e) => {
-  //   e.preventDefault();
-  //   const { handlerNameOfBrewery, handlerNameOfCity, selectState } = formState;
-
-  //   if (
-  //     handlerNameOfBrewery.trim().length <= 0 &&
-  //     handlerNameOfCity.trim().length <= 0 &&
-  //     selectState === ""
-  //   ) {
-  //     return setShowError(true);
-  //   } else if (
-  //     handlerNameOfBrewery.trim().length > 0 &&
-  //     handlerNameOfCity.trim().length > 0 &&
-  //     selectState !== ""
-  //   ) {
-  //     search({
-  //       variables: {
-  //         name: handlerNameOfBrewery,
-  //         city: handlerNameOfCity,
-  //         state: selectState,
-  //       },
-  //     });
-  //   } else if (
-  //     !handlerNameOfBrewery.trim().length &&
-  //     handlerNameOfCity.trim().length &&
-  //     selectState !== ""
-  //   ) {
-  //     console.log("clicked");
-  //     searchByState({
-  //       variables: {
-  //         city: handlerNameOfCity,
-  //         state: selectState,
-  //       },
-  //     });
-  //   }
-  //   setShowError(false);
-  //   return setModalOpen(false);
-  // };
 
   return (
     <BaseModal>

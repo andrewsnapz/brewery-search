@@ -1,8 +1,9 @@
 import React, { useReducer, useState } from "react";
 import styles from "./BreweryInfoForm.module.scss";
 
+import useFetchData from "../../custom-hooks/useFetchData";
 import BaseModal from "../UI/BaseModal";
-import QueryComponent from "./QueryComponent";
+// import QueryComponent from "./QueryComponent";
 
 const initialState = {
   handlerNameOfBrewery: "",
@@ -29,15 +30,18 @@ const formReducer = (state, action) => {
 const BreweryInfoForm = ({ setBreweriesToDisplay, setModalOpen }) => {
   const [formState, dispatch] = useReducer(formReducer, initialState);
   const [showError, setShowError] = useState(false);
+  const fetchData = useFetchData();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    return (
-      <QueryComponent
-        formParams={formState}
-        setBreweriesToDisplay={setBreweriesToDisplay}
-      />
-    );
+    console.log("inside handleSubmit");
+    // return (
+    //   <QueryComponent
+    //     formParams={formState}
+    //     setBreweriesToDisplay={setBreweriesToDisplay}
+    //   />
+    // );
+    fetchData(formState, setBreweriesToDisplay);
   };
 
   return (

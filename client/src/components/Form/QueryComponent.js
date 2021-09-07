@@ -8,6 +8,8 @@ const QueryComponent = ({ formParams, setBreweriesToDisplay }) => {
   const nameOfBrewery = formParams.handlerNameOfBrewery.trim();
   const nameOfState = formParams.selectState.trim();
 
+  console.log("inside of QueryComponent");
+
   const [
     completedFormSearch,
     { completedFormLoading, completedFormData, completedFormError },
